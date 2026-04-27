@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   gtag: {
     // Script wird erst nach expliziter Zustimmung geladen (DSGVO)
     initMode: 'manual',
-    id: process.env.GOOGLE_ANALYTICS_MEAS_ID || 'G-XXXXXXXXXX',
+    id: process.env.GOOGLE_ANALYTICS_MEAS_ID || 'G-0342PTNQ08',
   },
 
   tailwindcss: {
