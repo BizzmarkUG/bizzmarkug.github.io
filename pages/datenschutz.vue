@@ -3,6 +3,12 @@ useSeoMeta({
   title: 'Datenschutz – BizzMark',
   description: 'Datenschutzerklärung der BizzMark UG (haftungsbeschränkt).',
 })
+
+const consent = useCookie<'accepted' | 'declined' | null>('bizzmark-consent')
+
+function revokeConsent() {
+  consent.value = null
+}
 </script>
 
 <template>
@@ -57,8 +63,9 @@ useSeoMeta({
         <h2>4. Datenerfassung auf unserer Website</h2>
         <h3>Cookies</h3>
         <p>
-          Diese Website verwendet keine Tracking-Cookies ohne Ihre Zustimmung. Technisch notwendige Cookies
-          können zur Bereitstellung der Website erforderlich sein.
+          Diese Website setzt ein funktionelles Cookie (<code>bizzmark-consent</code>), das Ihre
+          Einwilligungsentscheidung zum Thema Tracking speichert (Gültigkeit: 1 Jahr). Tracking-Cookies
+          (Google Analytics 4) werden ausschließlich gesetzt, wenn Sie im Cookie-Hinweis zustimmen.
         </p>
 
         <h3>Server-Log-Dateien</h3>
@@ -69,7 +76,32 @@ useSeoMeta({
           IP-Adresse. Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen.
         </p>
 
-        <h2>5. Ihre Rechte</h2>
+        <h2>5. Google Analytics 4</h2>
+        <p>
+          Diese Website verwendet Google Analytics 4 (GA4), einen Webanalysedienst der Google LLC,
+          1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA. GA4 erfasst anonymisierte Nutzungsdaten
+          (Seitenaufrufe, Verweildauer, Herkunft). Die Verarbeitung erfolgt auf Servern von Google;
+          IP-Adressen werden vor der Speicherung anonymisiert.
+        </p>
+        <p>
+          <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung). Google Analytics
+          wird ausschließlich nach Ihrer ausdrücklichen Zustimmung über den Cookie-Hinweis aktiviert.
+        </p>
+        <p>
+          <strong>Einwilligung widerrufen:</strong> Sie können Ihre Einwilligung jederzeit mit Wirkung
+          für die Zukunft widerrufen. Klicken Sie dazu auf die Schaltfläche unten – der Cookie-Hinweis
+          wird erneut angezeigt und Google Analytics wird nicht mehr geladen.
+        </p>
+        <button class="btn btn-outline" style="margin-bottom: 1.5rem;" @click="revokeConsent">
+          Cookie-Einstellungen ändern / Einwilligung widerrufen
+        </button>
+        <p>
+          Weitere Informationen:
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a>,
+          <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out-Browser-Add-on</a>.
+        </p>
+
+        <h2>6. Ihre Rechte</h2>
         <p>
           Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten,
           deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung oder
