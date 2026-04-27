@@ -10,7 +10,7 @@ useSeoMeta({
     <img src="/Logo.svg" alt="BizzMark" class="uc-logo" />
     <h1>Under Construction</h1>
     <p>Hier finden Sie bald die neue Seite der BizzMark UG (haftungsbeschränkt).</p>
-    <a href="mailto:info@bizzmark.io" class="btn btn-primary">info@bizzmark.io</a>
+    <NuxtLink to="/contact" class="btn btn-primary">Kontakt aufnehmen</NuxtLink>
   </div>
 </template>
 

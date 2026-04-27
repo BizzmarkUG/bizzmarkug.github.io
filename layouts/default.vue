@@ -9,13 +9,10 @@
           <NuxtLink to="/" class="nav-link" @click="menuOpen = false">Startseite</NuxtLink>
           <NuxtLink to="/ueber-uns" class="nav-link" @click="menuOpen = false">Über uns</NuxtLink>
           <NuxtLink to="/blog" class="nav-link" @click="menuOpen = false">Blog</NuxtLink>
-          <NuxtLink to="/contact" class="nav-link" @click="menuOpen = false">Kontakt</NuxtLink>
           <NuxtLink to="/impressum" class="nav-link" @click="menuOpen = false">Impressum</NuxtLink>
         </nav>
         <div class="navbar-actions">
-          <a href="mailto:info@bizzmark.io" class="nav-cta" aria-label="E-Mail senden">
-            Kontakt
-          </a>
+          <NuxtLink to="/contact" class="nav-cta">Kontakt</NuxtLink>
           <button
             class="navbar-burger"
             :aria-expanded="menuOpen"
