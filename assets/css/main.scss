@@ -1,0 +1,464 @@
+@use 'sass:color';
+
+// ── Design Tokens – BizzMark Brand Colors ─────────────────────────────────────
+// Aus Logo-SVG extrahiert:
+// #ef4a26  Orange-Rot (Primär-Akzent, Gradient-Start)
+// #1e4354  Dunkles Teal/Navy (Sekundär, Text-Dunkel)
+// #277ca1  Mittelblau (Akzent-Blau)
+
+$primary:    #ef4a26;   // BizzMark Orange-Rot
+$primary-lt: #f46e44;   // Aufgehelltes Orange (Gradient-Ende)
+$secondary:  #1e4354;   // Dunkles Teal/Navy
+$accent:     #277ca1;   // Mittelblau
+$body-bg:    #f8f9fb;   // Sehr helles Grau-Weiß
+$body-color: #1a2a36;   // Dunkles Warmblau
+$muted:      #6b7a8a;   // Gedämpftes Blaugrau
+$navbar-bg:  #1e4354;   // Navy-Navbar
+$footer-bg:  #1e4354;
+
+$radius-sm:  6px;
+$radius:     12px;
+$radius-lg:  20px;
+$radius-xl:  28px;
+$shadow-sm:  0 1px 3px rgba(0,0,0,.07), 0 2px 8px rgba(0,0,0,.04);
+$shadow:     0 4px 16px rgba(0,0,0,.09), 0 1px 4px rgba(0,0,0,.04);
+$shadow-lg:  0 8px 40px rgba(0,0,0,.13), 0 2px 8px rgba(0,0,0,.06);
+$transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+// ── Reset & Base ──────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  background: $body-bg;
+  color: $body-color;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Poppins", "Inter", system-ui, sans-serif;
+  font-weight: 700;
+  color: $secondary;
+  line-height: 1.25;
+  margin-bottom: 0.6em;
+}
+
+h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
+h3 { font-size: 1.2rem; }
+h4 { font-size: 1rem; }
+
+p  { margin-bottom: 1rem; }
+
+a  { color: $accent; text-decoration: none; transition: color $transition;
+     &:hover { color: $primary; } }
+
+img { max-width: 100%; height: auto; display: block; }
+
+ul, ol { padding-left: 1.25rem; margin-bottom: 1rem; }
+
+strong { color: $secondary; font-weight: 600; }
+
+hr { border: none; height: 1px; background: rgba($secondary, .12); margin-block: 3rem; }
+
+// ── Layout ────────────────────────────────────────────────────────────────────
+.site-wrapper { display: flex; flex-direction: column; min-height: 100vh; }
+.main-content  { flex: 1; }
+
+.container {
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.section        { padding-block: 5rem; }
+.section--sm    { padding-block: 3rem; }
+.text-center    { text-align: center; }
+
+// ── Navbar ────────────────────────────────────────────────────────────────────
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: $navbar-bg;
+  box-shadow: $shadow-sm;
+  transition: box-shadow $transition;
+
+  &.scrolled { box-shadow: $shadow; }
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 1rem;
+}
+
+.navbar-logo { height: 36px; width: auto; }
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #fff;
+
+  // Invertiere Logo für dunkle Navbar
+  img { filter: brightness(0) invert(1); }
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  padding: 0.45rem 0.85rem;
+  border-radius: $radius-sm;
+  font-size: 0.925rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.82);
+  transition: background $transition, color $transition;
+
+  &:hover, &.router-link-active {
+    background: rgba(255,255,255,.12);
+    color: #fff;
+  }
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.1rem;
+  border-radius: $radius-sm;
+  background: $primary;
+  color: #fff !important;
+  font-size: 0.925rem;
+  font-weight: 600;
+  transition: background $transition, transform $transition;
+
+  &:hover { background: color.scale($primary, $lightness: -10%); transform: translateY(-1px); }
+}
+
+.navbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+.navbar-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 28px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: $transition;
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar-nav {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: $navbar-bg;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem 1.5rem 1rem;
+    box-shadow: $shadow;
+
+    &.open { display: flex; }
+
+    .nav-link { padding: 0.65rem 0.85rem; }
+  }
+  .navbar-burger { display: flex; }
+}
+
+// ── Buttons ───────────────────────────────────────────────────────────────────
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: $radius-sm;
+  font-size: 0.925rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background $transition, color $transition, border-color $transition, transform $transition;
+
+  &:hover { transform: translateY(-1px); }
+}
+
+.btn-primary {
+  background: $primary;
+  color: #fff;
+  &:hover { background: color.scale($primary, $lightness: -10%); color: #fff; }
+}
+
+.btn-outline {
+  background: transparent;
+  color: $primary;
+  border-color: $primary;
+  &:hover { background: $primary; color: #fff; }
+}
+
+.btn-secondary {
+  background: $secondary;
+  color: #fff;
+  &:hover { background: color.scale($secondary, $lightness: -10%); color: #fff; }
+}
+
+.btn-hero {
+  @extend .btn;
+  @extend .btn-primary;
+  font-size: 1rem;
+  padding: 0.8rem 2rem;
+}
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
+.hero {
+  background: linear-gradient(135deg, $secondary 0%, color.scale($accent, $lightness: -8%) 100%);
+  color: #fff;
+  padding-block: 6rem 5rem;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba($primary, .18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .container { position: relative; z-index: 1; }
+}
+
+.hero-label {
+  display: inline-block;
+  background: rgba($primary, .2);
+  color: rgba(255,255,255,.9);
+  border: 1px solid rgba($primary, .4);
+  border-radius: 20px;
+  padding: 0.3rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  color: #fff;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  margin-bottom: 1.25rem;
+
+  .accent { color: $primary-lt; }
+}
+
+.hero-sub {
+  color: rgba(255,255,255,.75);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.hero-lead {
+  max-width: 640px;
+  color: rgba(255,255,255,.85);
+  font-size: 1.05rem;
+  margin-bottom: 2.5rem;
+}
+
+// ── Section Label ─────────────────────────────────────────────────────────────
+.section-label {
+  display: inline-block;
+  color: $primary;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+// ── Service/Feature Cards ─────────────────────────────────────────────────────
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.service-card {
+  background: #fff;
+  border: 1px solid rgba($secondary, .1);
+  border-radius: $radius;
+  padding: 2rem 1.5rem;
+  box-shadow: $shadow-sm;
+  transition: box-shadow $transition, transform $transition;
+
+  &:hover {
+    box-shadow: $shadow;
+    transform: translateY(-3px);
+  }
+}
+
+.service-icon {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+// ── USP Row ───────────────────────────────────────────────────────────────────
+.usp-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.usp-item { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+.usp-icon { font-size: 2.5rem; }
+.usp-title { font-weight: 700; color: $secondary; }
+
+// ── Prose (Content-Pages) ─────────────────────────────────────────────────────
+.prose {
+  max-width: 720px;
+  margin-inline: auto;
+
+  h2 { margin-top: 2.5rem; padding-bottom: 0.4rem; border-bottom: 2px solid rgba($primary, .2); }
+  h3 { margin-top: 1.75rem; color: $accent; }
+  pre { background: #f4f6f8; border-radius: $radius-sm; padding: 1.25rem; overflow-x: auto; font-size: 0.875rem; }
+  code { background: rgba($primary, .08); padding: 0.15em 0.4em; border-radius: 4px; font-size: 0.88em; }
+  pre code { background: none; padding: 0; }
+  blockquote {
+    border-left: 4px solid $primary;
+    margin-left: 0;
+    padding-left: 1.25rem;
+    color: $muted;
+    font-style: italic;
+  }
+  a { color: $accent; &:hover { color: $primary; } }
+}
+
+// ── Blog Card ─────────────────────────────────────────────────────────────────
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.75rem;
+  margin-top: 2.5rem;
+}
+
+.blog-card {
+  background: #fff;
+  border: 1px solid rgba($secondary, .1);
+  border-radius: $radius;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+  transition: box-shadow $transition, transform $transition;
+  display: flex;
+  flex-direction: column;
+
+  &:hover { box-shadow: $shadow; transform: translateY(-3px); }
+}
+
+.blog-card__body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.blog-card__meta { font-size: 0.82rem; color: $muted; margin-bottom: 0.5rem; }
+.blog-card__title { font-size: 1.1rem; font-weight: 700; color: $secondary; margin-bottom: 0.5rem; }
+.blog-card__excerpt { font-size: 0.92rem; color: $muted; flex: 1; }
+.blog-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 1.1rem;
+  color: $primary;
+  font-weight: 600;
+  font-size: 0.9rem;
+  &:hover { color: color.scale($primary, $lightness: -12%); }
+}
+
+// ── Page Hero (innere Seiten) ─────────────────────────────────────────────────
+.page-hero {
+  background: linear-gradient(120deg, $secondary 0%, $accent 100%);
+  color: #fff;
+  padding-block: 4rem 3rem;
+
+  h1 { color: #fff; font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+  p  { color: rgba(255,255,255,.8); }
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────────
+.site-footer {
+  background: $footer-bg;
+  color: rgba(255,255,255,.8);
+  padding-top: 4rem;
+  margin-top: auto;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+
+  @media (max-width: 640px) { grid-template-columns: 1fr; }
+}
+
+.footer-logo { height: 32px; margin-bottom: 1rem; filter: brightness(0) invert(1); }
+.footer-brand p { font-size: 0.9rem; line-height: 1.6; }
+
+.footer-links { display: flex; gap: 3rem; }
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  a, span { font-size: 0.875rem; color: rgba(255,255,255,.7); transition: color $transition; }
+  a:hover { color: $primary-lt; }
+}
+
+.footer-col-title {
+  font-weight: 700;
+  font-size: 0.825rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 0.25rem;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-block: 1.25rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,.5);
+}
+
+.footer-legal {
+  display: flex;
+  gap: 1.5rem;
+
+  a { color: rgba(255,255,255,.5); transition: color $transition; &:hover { color: $primary-lt; } }
+}
