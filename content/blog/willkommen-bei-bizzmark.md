@@ -1,6 +1,6 @@
 ---
 title: Willkommen bei BizzMark
-date: '2024-04-07'
+date: '2026-04-27'
 description: Unsere neue Seite ist soeben aufgesetzt – hier erfahren Sie, wer wir sind und was uns antreibt.
 ---
 
