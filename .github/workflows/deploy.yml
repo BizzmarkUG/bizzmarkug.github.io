@@ -27,6 +27,7 @@ jobs:
       - run: npm run generate
         env:
           GOOGLE_ANALYTICS_MEAS_ID: ${{ secrets.GOOGLE_ANALYTICS_MEAS_ID }}
+          STATIC_FORMS_KEY: ${{ secrets.STATIC_FORMS_KEY }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
