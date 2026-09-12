@@ -4,7 +4,9 @@ useSeoMeta({
   description: 'Nehmen Sie Kontakt mit BizzMark auf – wir freuen uns auf Ihre Anfrage.',
 })
 
-const { public: { staticFormsKey } } = useRuntimeConfig()
+const { public: { staticFormsKey, siteUrl } } = useRuntimeConfig()
+
+const redirectTo = `${siteUrl}/danke`
 
 const form = reactive({
   name: '',
@@ -50,7 +52,7 @@ const form = reactive({
         class="contact-form"
       >
         <input type="hidden" name="apiKey" :value="staticFormsKey" />
-        <input type="hidden" name="redirectTo" value="https://bizzmarkug.github.io/danke" />
+        <input type="hidden" name="redirectTo" :value="redirectTo" />
         <!-- Honeypot gegen Spam -->
         <input type="text" name="honeypot" style="display:none" tabindex="-1" autocomplete="off" />
 

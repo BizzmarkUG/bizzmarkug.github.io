@@ -44,7 +44,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      siteUrl: 'https://bizzmarkug.github.io',
+      siteUrl: 'https://bizzmark.io',
       staticFormsKey: process.env.STATIC_FORMS_KEY || '',
     },
   },
